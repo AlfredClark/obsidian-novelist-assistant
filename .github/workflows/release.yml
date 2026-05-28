@@ -36,6 +36,12 @@ jobs:
       - name: Build
         run: bun run build
 
+      - name: Package
+        run: |
+          mkdir -p novelist-assistant
+          cp main.js manifest.json styles.css novelist-assistant/
+          zip -r novelist-assistant.zip novelist-assistant
+
       - name: Generate changelog
         id: cliff
         uses: orhun/git-cliff-action@v4
@@ -53,4 +59,4 @@ jobs:
           gh release create "${{ github.ref_name }}" \
             --title "${{ github.ref_name }}" \
             --notes-file CHANGELOG.md \
-            main.js manifest.json styles.css source-code.zip
+            main.js manifest.json styles.css source-code.zip novelist-assistant.zip
