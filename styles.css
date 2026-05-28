@@ -6,3 +6,44 @@ available in the app when your plugin is enabled.
 If your plugin does not need CSS, delete this file.
 
 */
+:root {
+  --text-muted: var(--text-muted);
+  --novel-indent: 2rem;
+  --novel-line-height: 2rem;
+  --novel-gridlines-size: 5px;
+  --novel-gridlines-space: 10px;
+  --novel-gridlines-thick: 1px;
+  --novel-gridlines-opacity: 50%;
+}
+
+body {
+  --list-spacing: 0;
+}
+
+.novel-layouts .markdown-source-view .cm-content {
+  position: relative;
+  text-indent: var(--novel-indent, 2rem);
+  line-height: var(--novel-line-height, 2rem);
+}
+
+.novel-gridlines .markdown-source-view .cm-content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(var(--novel-line-height) - var(--novel-gridlines-thick)),
+      color-mix(in srgb, var(--text-muted) var(--novel-gridlines-opacity), transparent) calc(var(--novel-line-height) - var(--novel-gridlines-thick)),
+      color-mix(in srgb, var(--text-muted) var(--novel-gridlines-opacity), transparent) var(--novel-line-height)
+  );
+  mask-image: repeating-linear-gradient(
+      to right,
+      black 0,
+      black var(--novel-gridlines-size),
+      transparent var(--novel-gridlines-size),
+      transparent var(--novel-gridlines-space)
+  );
+}

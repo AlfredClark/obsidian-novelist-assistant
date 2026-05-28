@@ -25,6 +25,7 @@ export default defineConfig(({ mode }) => ({
     paraglideVitePlugin({
       project: "./src/i18n/project.inlang",
       outdir: "./src/i18n/paraglide",
+      emitTsDeclarations: mode === "development",
     }),
     svelte({
       compilerOptions: {

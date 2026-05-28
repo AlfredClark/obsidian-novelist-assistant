@@ -32,11 +32,25 @@ export class ObsidianSvelteComponent extends BaseComponent {
 }
 
 /**
+ * Mount Svelte Component to element
+ */
+export class SvelteComponent extends HTMLElement {
+  public instance: Record<string, unknown>;
+
+  constructor(el: HTMLElement, component: Component, props?: Record<string, unknown>) {
+    super();
+    this.instance = mount(component, { target: el, props });
+  }
+}
+
+/**
  * Create Obsidian BaseComponent by HTML tag and option
  */
 export class HTMLComponent extends BaseComponent {
+  public element: HTMLElement;
+
   constructor(el: HTMLElement, tag: keyof HTMLElementTagNameMap, option: DomElementInfo) {
     super();
-    el.createEl(tag, option);
+    this.element = el.createEl(tag, option);
   }
 }

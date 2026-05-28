@@ -1,11 +1,11 @@
 import { ObsidianPlugin } from "./types";
-import { Command, Editor, MarkdownView, Modal } from "obsidian";
+import { Command, Modal } from "obsidian";
 
 export async function removeCommands(plugin: ObsidianPlugin) {
-  plugin.commands_ids.forEach((id: string) => {
+  plugin.commandsIds.forEach((id: string) => {
     plugin.removeCommand(id);
   });
-  plugin.commands_ids = [];
+  plugin.commandsIds = [];
 }
 
 export async function registerCommands(plugin: ObsidianPlugin) {
@@ -17,30 +17,9 @@ export async function registerCommands(plugin: ObsidianPlugin) {
         new Modal(plugin.app).setTitle("Open modal").setContent("Open modal (simple)").open();
       },
     },
-    {
-      id: "replace-selected",
-      name: "Replace selected content",
-      editorCallback: (editor: Editor, _view: MarkdownView) => {
-        editor.replaceSelection("Sample editor command");
-      },
-    },
-    {
-      id: "open-modal-complex",
-      name: "Open modal (complex)",
-      checkCallback: (checking: boolean) => {
-        const markdownView = plugin.app.workspace.getActiveViewOfType(MarkdownView);
-        if (markdownView) {
-          if (!checking) {
-            new Modal(plugin.app).setTitle("Open modal").setContent("Open modal (complex)").open();
-          }
-          return true;
-        }
-        return false;
-      },
-    },
   ];
-  plugin.commands_ids = [];
+  plugin.commandsIds = [];
   commands.forEach((command) => {
-    plugin.commands_ids.push(plugin.addCommand(command).id);
+    plugin.commandsIds.push(plugin.addCommand(command).id);
   });
 }

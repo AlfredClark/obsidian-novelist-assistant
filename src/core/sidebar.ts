@@ -1,8 +1,7 @@
 import { ObsidianPlugin } from "./types";
 import { ItemView, WorkspaceLeaf } from "obsidian";
-import * as m from "../i18n/paraglide/messages";
 
-export const VIEW_TYPE = "obsidian-plugin-template-sidebar";
+export const VIEW_TYPE = "novelist-assistant-sidebar";
 
 export class SidebarView extends ItemView {
   constructor(leaf: WorkspaceLeaf) {
@@ -24,8 +23,6 @@ export class SidebarView extends ItemView {
   async onOpen() {
     const { contentEl } = this;
     contentEl.empty();
-    contentEl.createEl("h2", { text: m.sidebar_title() });
-    contentEl.createEl("p", { text: m.sidebar_content() });
   }
 
   async onClose() {
