@@ -1,0 +1,58 @@
+{
+  "name": "obsidian-plugin-template",
+  "version": "0.5.0",
+  "description": "A Vite based Obsidian plugin development template",
+  "homepage": "https://github.com/AlfredClark/obsidian-plugin-template",
+  "author": {
+    "name": "Alfred Clark",
+    "email": "alfredclark@163.com",
+    "url": "https://github.com/AlfredClark"
+  },
+  "license": "GPL-3.0",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite build --watch --mode development",
+    "build": "tsc --noEmit --skipLibCheck && vite build --mode production",
+    "lint": "eslint src/",
+    "check": "prettier --check '**/*.ts'",
+    "format": "prettier --write '**/*.ts'",
+    "dist-link": "node dist-link.ts",
+    "clean": "rimraf dist main.js main.js.map",
+    "clean:dist": "rimraf dist/*",
+    "clean:deep": "rimraf dist main.js main.js.map node_modules",
+    "version": "node version-bump.ts && git add manifest.json versions.json",
+    "i18n:compile": "paraglide-js compile --project ./src/i18n/project.inlang --outdir ./src/i18n/paraglide",
+    "machine-translate": "inlang machine translate --project src/i18n/project.inlang"
+  },
+  "dependencies": {
+    "obsidian": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "@sveltejs/vite-plugin-svelte": "^7.1.2",
+    "@types/node": "^25.9.1",
+    "esbuild": "^0.28.0",
+    "esbuild-svelte": "^0.9.5",
+    "eslint": "^9.39.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-obsidianmd": "^0.3.0",
+    "eslint-plugin-svelte": "^3.17.1",
+    "globals": "^17.6.0",
+    "jiti": "^2.7.0",
+    "prettier": "^3.8.3",
+    "prettier-plugin-svelte": "^4.0.1",
+    "rimraf": "^6.1.3",
+    "svelte": "^5.55.9",
+    "svelte-check": "^4.4.8",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.59.4",
+    "vite": "^8.0.14",
+    "vite-plugin-eslint2": "^5.1.0",
+    "@inlang/paraglide-js": "^2.18.1",
+    "@inlang/cli": "^3.0.0"
+  }
+}
