@@ -32,6 +32,21 @@ export async function initializeReadingMode(plugin: ObsidianPlugin) {
           text: paragraph,
         });
       });
+      window.document.documentElement.addClass("novel-reading-mode");
+      window.document.documentElement.style.setProperty(
+        "--novel-reading-mode-indent",
+        `${plugin.settings.readingModeIndent}rem`,
+      );
+      window.document.documentElement.style.setProperty(
+        "--novel-reading-mode-line-height",
+        `${plugin.settings.readingModeLineHeight}rem`,
+      );
+      window.document.documentElement.style.setProperty(
+        "--novel-reading-mode-paragraph-spacing",
+        `${plugin.settings.readingModeParagraphSpacing}rem`,
+      );
+    } else {
+      window.document.documentElement.removeClass("novel-reading-mode");
     }
   });
 }

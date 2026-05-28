@@ -30,7 +30,7 @@
   "settings_reading_mode_line_height_desc": "阅读视图内容行高",
   "settings_reading_mode_paragraph_spacing": "段间距",
   "settings_reading_mode_paragraph_spacing_desc": "阅读视图段间距",
-  "settings_word_count": "字数",
+  "settings_word_count": "字数统计",
   "settings_word_count_enable": "启用",
   "settings_word_count_enable_desc": "启用文件管理器中的字数统计",
   "settings_word_count_suffix": "后缀",
