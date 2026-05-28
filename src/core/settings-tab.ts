@@ -1,4 +1,4 @@
-import { PluginSettingTab, SettingGroup } from "obsidian";
+import { MarkdownView, PluginSettingTab, SettingGroup } from "obsidian";
 import { ObsidianPlugin } from "./types";
 import { locales, setLocale, toLocale, baseLocale } from "../i18n/paraglide/runtime";
 import * as m from "../i18n/paraglide/messages";
@@ -221,6 +221,11 @@ export class TemplatePluginSettingTab extends PluginSettingTab {
               } else {
                 window.document.documentElement.removeClass("novel-reading-mode");
               }
+              this.app.workspace.iterateAllLeaves((leaf) => {
+                if (leaf.view instanceof MarkdownView) {
+                  leaf.view.previewMode.rerender(true);
+                }
+              });
               this.plugin.settings.readingModeEnabled = value;
               await this.plugin.saveData(this.plugin.settings);
             });

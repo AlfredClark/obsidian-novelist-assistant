@@ -10,7 +10,7 @@ async function createSettingLibraryFile(folder: TFolder, name: string, plugin: O
   }
 }
 
-// Collect all markdown file names (without extension) from all subfolders of the library folder.
+// Collect all Markdown file names (without extension) from all subfolders of the library folder.
 export function getAllSettingLibraries(plugin: ObsidianPlugin): string[] {
   const folderPath = plugin.settings.settingLibraryFolder.trim();
   if (!folderPath) return [];
