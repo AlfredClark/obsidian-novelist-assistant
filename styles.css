@@ -8,8 +8,11 @@ If your plugin does not need CSS, delete this file.
 */
 :root {
   --text-muted: var(--text-muted);
-  --novel-indent: 2rem;
-  --novel-line-height: 2rem;
+  --novel-layouts-indent: 2rem;
+  --novel-layouts-line-height: 2rem;
+  --novel-reading-mode-indent: 2rem;
+  --novel-reading-mode-line-height: 1.5rem;
+  --novel-reading-mode-paragraph-spacing: 0.5rem;
   --novel-gridlines-size: 5px;
   --novel-gridlines-space: 10px;
   --novel-gridlines-thick: 1px;
@@ -22,8 +25,8 @@ body {
 
 .novel-layouts .markdown-source-view .cm-content {
   position: relative;
-  text-indent: var(--novel-indent, 2rem);
-  line-height: var(--novel-line-height, 2rem);
+  text-indent: var(--novel-layouts-indent, 2rem);
+  line-height: var(--novel-layouts-line-height, 2rem);
 }
 
 .novel-gridlines .markdown-source-view .cm-content::before {
@@ -35,9 +38,9 @@ body {
   background-image: repeating-linear-gradient(
       to bottom,
       transparent 0,
-      transparent calc(var(--novel-line-height) - var(--novel-gridlines-thick)),
-      color-mix(in srgb, var(--text-muted) var(--novel-gridlines-opacity), transparent) calc(var(--novel-line-height) - var(--novel-gridlines-thick)),
-      color-mix(in srgb, var(--text-muted) var(--novel-gridlines-opacity), transparent) var(--novel-line-height)
+      transparent calc(var(--novel-layouts-line-height) - var(--novel-gridlines-thick)),
+      color-mix(in srgb, var(--text-muted) var(--novel-gridlines-opacity), transparent) calc(var(--novel-layouts-line-height) - var(--novel-gridlines-thick)),
+      color-mix(in srgb, var(--text-muted) var(--novel-gridlines-opacity), transparent) var(--novel-layouts-line-height)
   );
   mask-image: repeating-linear-gradient(
       to right,
@@ -46,4 +49,14 @@ body {
       transparent var(--novel-gridlines-size),
       transparent var(--novel-gridlines-space)
   );
+}
+
+.novel-reading-mode .markdown-preview-view .el-p p {
+  text-indent: var(--novel-reading-mode-indent, 2rem);
+  line-height: var(--novel-reading-mode-line-height, 2rem);
+}
+
+.novel-reading-mode .markdown-preview-view .el-p p {
+  margin-top: var(--novel-reading-mode-paragraph-spacing, 0rem);
+  margin-bottom: var(--novel-reading-mode-paragraph-spacing, 0rem);
 }

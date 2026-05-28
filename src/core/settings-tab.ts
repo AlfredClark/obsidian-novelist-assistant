@@ -49,35 +49,22 @@ export class TemplatePluginSettingTab extends PluginSettingTab {
     new SettingGroup(containerEl)
       .setHeading(m.settings_layouts())
       .addSetting((setting) => {
-        setting
-          .setName(m.settings_layouts_enable())
-          .setDesc(m.settings_layouts_enable_desc())
-          .addToggle((component) => {
-            component.setValue(this.plugin.settings.layoutsEnable).onChange(async (value) => {
-              if (value) {
-                window.document.documentElement.addClass("novel-layouts");
-              } else {
-                window.document.documentElement.removeClass("novel-layouts");
-              }
-              this.plugin.settings.layoutsEnable = value;
-              await this.plugin.saveData(this.plugin.settings);
-            });
-          });
-      })
-      .addSetting((setting) => {
         // Indent
         setting
-          .setName(m.settings_indent())
-          .setDesc(m.settings_indent_desc())
+          .setName(m.settings_layouts_indent())
+          .setDesc(m.settings_layouts_indent_desc())
           .addSlider((component) => {
             component
               .setLimits(0, 4, 1)
               .setInstant(false)
-              .setValue(this.plugin.settings.indent)
+              .setValue(this.plugin.settings.layoutsIndent)
               .setDynamicTooltip()
               .onChange(async (value) => {
-                this.plugin.settings.indent = value;
-                window.document.documentElement.style.setProperty("--novel-indent", `${value}rem`);
+                this.plugin.settings.layoutsIndent = value;
+                window.document.documentElement.style.setProperty(
+                  "--novel-layouts-indent",
+                  `${value}rem`,
+                );
                 await this.plugin.saveData(this.plugin.settings);
               });
           });
@@ -85,18 +72,18 @@ export class TemplatePluginSettingTab extends PluginSettingTab {
       .addSetting((setting) => {
         // Line Height
         setting
-          .setName(m.settings_line_height())
-          .setDesc(m.settings_line_height_desc())
+          .setName(m.settings_layouts_line_height())
+          .setDesc(m.settings_layouts_line_height_desc())
           .addSlider((component) => {
             component
               .setLimits(1, 3, 0.1)
               .setInstant(false)
-              .setValue(this.plugin.settings.lineHeight)
+              .setValue(this.plugin.settings.layoutsLineHeight)
               .setDynamicTooltip()
               .onChange(async (value) => {
-                this.plugin.settings.lineHeight = value;
+                this.plugin.settings.layoutsLineHeight = value;
                 window.document.documentElement.style.setProperty(
-                  "--novel-line-height",
+                  "--novel-layouts-line-height",
                   `${value}rem`,
                 );
                 await this.plugin.saveData(this.plugin.settings);
@@ -213,6 +200,90 @@ export class TemplatePluginSettingTab extends PluginSettingTab {
                 window.document.documentElement.style.setProperty(
                   "--novel-gridlines-opacity",
                   `${value}%`,
+                );
+                await this.plugin.saveData(this.plugin.settings);
+              });
+          });
+      });
+
+    /** Reading Mode **/
+    new SettingGroup(containerEl)
+      .setHeading(m.settings_reading_mode())
+      .addSetting((setting) => {
+        // Reading Mode Enable
+        setting
+          .setName(m.settings_reading_mode_enable())
+          .setDesc(m.settings_reading_mode_enable_desc())
+          .addToggle((component) => {
+            component.setValue(this.plugin.settings.readingModeEnabled).onChange(async (value) => {
+              if (value) {
+                window.document.documentElement.addClass("novel-reading-mode");
+              } else {
+                window.document.documentElement.removeClass("novel-reading-mode");
+              }
+              this.plugin.settings.readingModeEnabled = value;
+              await this.plugin.saveData(this.plugin.settings);
+            });
+          });
+      })
+      .addSetting((setting) => {
+        // Reading Mode Indent
+        setting
+          .setName(m.settings_reading_mode_indent())
+          .setDesc(m.settings_reading_mode_indent_desc())
+          .addSlider((component) => {
+            component
+              .setLimits(0, 4, 1)
+              .setInstant(false)
+              .setValue(this.plugin.settings.readingModeIndent)
+              .setDynamicTooltip()
+              .onChange(async (value) => {
+                this.plugin.settings.readingModeIndent = value;
+                window.document.documentElement.style.setProperty(
+                  "--novel-reading-mode-indent",
+                  `${value}rem`,
+                );
+                await this.plugin.saveData(this.plugin.settings);
+              });
+          });
+      })
+      .addSetting((setting) => {
+        // Reading Mode Line Height
+        setting
+          .setName(m.settings_reading_mode_line_height())
+          .setDesc(m.settings_reading_mode_line_height_desc())
+          .addSlider((component) => {
+            component
+              .setLimits(1, 3, 0.1)
+              .setInstant(false)
+              .setValue(this.plugin.settings.readingModeLineHeight)
+              .setDynamicTooltip()
+              .onChange(async (value) => {
+                this.plugin.settings.readingModeLineHeight = value;
+                window.document.documentElement.style.setProperty(
+                  "--novel-reading-mode-line-height",
+                  `${value}rem`,
+                );
+                await this.plugin.saveData(this.plugin.settings);
+              });
+          });
+      })
+      .addSetting((setting) => {
+        // Reading Mode Paragraph Spacing
+        setting
+          .setName(m.settings_reading_mode_paragraph_spacing())
+          .setDesc(m.settings_reading_mode_paragraph_spacing_desc())
+          .addSlider((component) => {
+            component
+              .setLimits(0, 4, 0.1)
+              .setInstant(false)
+              .setValue(this.plugin.settings.readingModeParagraphSpacing)
+              .setDynamicTooltip()
+              .onChange(async (value) => {
+                this.plugin.settings.readingModeParagraphSpacing = value;
+                window.document.documentElement.style.setProperty(
+                  "--novel-reading-mode-paragraph-spacing",
+                  `${value}rem`,
                 );
                 await this.plugin.saveData(this.plugin.settings);
               });

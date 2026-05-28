@@ -5,17 +5,13 @@ import { ObsidianPlugin } from "../core/types";
  * @param plugin ObsidianPlugin
  */
 export async function initializeLayouts(plugin: ObsidianPlugin) {
-  if (plugin.settings.layoutsEnable) {
-    window.document.documentElement.addClass("novel-layouts");
-    window.document.documentElement.style.setProperty(
-      "--novel-indent",
-      `${plugin.settings.indent}rem`,
-    );
-    window.document.documentElement.style.setProperty(
-      "--novel-line-height",
-      `${plugin.settings.lineHeight}rem`,
-    );
-  } else {
-    window.document.documentElement.removeClass("novel-layouts");
-  }
+  window.document.documentElement.addClass("novel-layouts");
+  window.document.documentElement.style.setProperty(
+    "--novel-layouts-indent",
+    `${plugin.settings.layoutsIndent}rem`,
+  );
+  window.document.documentElement.style.setProperty(
+    "--novel-layouts-line-height",
+    `${plugin.settings.layoutsLineHeight}rem`,
+  );
 }

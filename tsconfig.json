@@ -19,7 +19,7 @@
     "types": ["svelte"],
     "lib": [
       "DOM",
-      "ES2024"
+      "ESNext"
     ]
   },
   "include": [

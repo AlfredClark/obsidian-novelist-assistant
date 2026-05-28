@@ -8,6 +8,7 @@ An Obsidian plugin to assist Chinese novelists in their creative process.
 
 - **Layouts** — Configurable text indent and line height for comfortable long-form writing
 - **Gridlines** — Customizable grid background with adjustable size, ratio, thickness, and opacity
+- **Reading Mode** - Modify the layout of the reading view and remove all special nodes such as links
 - **Word Count** — Real-time word count displayed in the file explorer
 - **Setting Library** - Quickly use words to create setting files, supporting quick creation or link clearing
 

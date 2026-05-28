@@ -10,6 +10,7 @@ import { initializeLayouts } from "./features/layouts";
 import { initializeGridlines } from "./features/gridlines";
 import { initializeWordCount } from "./features/word-count";
 import { initializeSettingLibrary } from "./features/setting-library";
+import { initializeReadingMode } from "./features/reading-mode";
 
 export default class TemplatePlugin extends ObsidianPlugin {
   async onload() {
@@ -25,6 +26,7 @@ export default class TemplatePlugin extends ObsidianPlugin {
     await initializeLayouts(this);
     await initializeGridlines(this);
     await initializeWordCount(this);
+    await initializeReadingMode(this);
     await initializeSettingLibrary(this);
   }
 }
