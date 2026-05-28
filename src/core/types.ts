@@ -23,6 +23,9 @@ export type Settings = {
   fileWordCountSuffix: string;
   // Setting Library
   settingLibraryFolder: string;
+  // Auto Number
+  autoNumberFormat: string;
+  autoNumberStyle: string;
 };
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -41,6 +44,8 @@ export const DEFAULT_SETTINGS: Settings = {
   fileWordCountEnable: true,
   fileWordCountSuffix: "字",
   settingLibraryFolder: "",
+  autoNumberFormat: "第{n}章",
+  autoNumberStyle: "number",
 };
 
 export class ObsidianPlugin extends Plugin {

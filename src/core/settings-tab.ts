@@ -45,6 +45,58 @@ export class TemplatePluginSettingTab extends PluginSettingTab {
         });
     });
 
+    /** Setting Library **/
+    new SettingGroup(containerEl).setHeading(m.settings_setting_library()).addSetting((setting) => {
+      setting
+        .setName(m.settings_setting_library_folder())
+        .setDesc(m.settings_setting_library_folder_desc())
+        .addDropdown((component) => {
+          component.addOption("", m.none_bracket());
+          this.plugin.app.vault.getAllFolders(false).forEach((folder) => {
+            component.addOption(folder.path, folder.path);
+          });
+          component.setValue(this.plugin.settings.settingLibraryFolder).onChange(async (value) => {
+            this.plugin.settings.settingLibraryFolder = value;
+            await this.plugin.saveData(this.plugin.settings);
+          });
+        });
+    });
+
+    /** Auto Number **/
+    new SettingGroup(containerEl)
+      .setHeading(m.settings_auto_number())
+      .addSetting((setting) => {
+        // Format
+        setting
+          .setName(m.settings_auto_number_format())
+          .setDesc(m.settings_auto_number_format_desc())
+          .addText((component) => {
+            component.setValue(this.plugin.settings.autoNumberFormat).onChange(async (value) => {
+              this.plugin.settings.autoNumberFormat = value;
+              await this.plugin.saveData(this.plugin.settings);
+            });
+          });
+      })
+      .addSetting((setting) => {
+        // Style
+        setting
+          .setName(m.settings_auto_number_style())
+          .setDesc(m.settings_auto_number_style_desc())
+          .addDropdown((component) => {
+            component
+              .addOptions({
+                number: m.settings_auto_number_style_number(),
+                cns: m.settings_auto_number_style_cns(),
+                cnb: m.settings_auto_number_style_cnb(),
+              })
+              .setValue(this.plugin.settings.autoNumberStyle)
+              .onChange(async (value) => {
+                this.plugin.settings.autoNumberStyle = value;
+                await this.plugin.saveData(this.plugin.settings);
+              });
+          });
+      });
+
     /** Layout **/
     new SettingGroup(containerEl)
       .setHeading(m.settings_layouts())
@@ -206,6 +258,41 @@ export class TemplatePluginSettingTab extends PluginSettingTab {
           });
       });
 
+    /** Word Count **/
+    new SettingGroup(containerEl)
+      .setHeading(m.settings_word_count())
+      .addSetting((setting) => {
+        // Word Count Display
+        setting
+          .setName(m.settings_word_count_enable())
+          .setDesc(m.settings_word_count_enable_desc())
+          .addToggle((component) => {
+            component.setValue(this.plugin.settings.fileWordCountEnable).onChange(async (value) => {
+              this.plugin.settings.fileWordCountEnable = value;
+              if (value) {
+                await createWordCount(this.plugin);
+              } else {
+                await removeWordCount(this.plugin);
+              }
+              await this.plugin.saveData(this.plugin.settings);
+            });
+          });
+      })
+      .addSetting((setting) => {
+        // Word Count Suffix
+        setting
+          .setName(m.settings_word_count_suffix())
+          .setDesc(m.settings_word_count_suffix_desc())
+          .addText((component) => {
+            component.setValue(this.plugin.settings.fileWordCountSuffix).onChange(async (value) => {
+              this.plugin.settings.fileWordCountSuffix = value.trim();
+              await this.plugin.saveData(this.plugin.settings);
+              await removeWordCount(this.plugin);
+              await createWordCount(this.plugin);
+            });
+          });
+      });
+
     /** Reading Mode **/
     new SettingGroup(containerEl)
       .setHeading(m.settings_reading_mode())
@@ -294,58 +381,6 @@ export class TemplatePluginSettingTab extends PluginSettingTab {
               });
           });
       });
-
-    /** Word Count **/
-    new SettingGroup(containerEl)
-      .setHeading(m.settings_word_count())
-      .addSetting((setting) => {
-        // Word Count Display
-        setting
-          .setName(m.settings_word_count_enable())
-          .setDesc(m.settings_word_count_enable_desc())
-          .addToggle((component) => {
-            component.setValue(this.plugin.settings.fileWordCountEnable).onChange(async (value) => {
-              this.plugin.settings.fileWordCountEnable = value;
-              if (value) {
-                await createWordCount(this.plugin);
-              } else {
-                await removeWordCount(this.plugin);
-              }
-              await this.plugin.saveData(this.plugin.settings);
-            });
-          });
-      })
-      .addSetting((setting) => {
-        // Word Count Suffix
-        setting
-          .setName(m.settings_word_count_suffix())
-          .setDesc(m.settings_word_count_suffix_desc())
-          .addText((component) => {
-            component.setValue(this.plugin.settings.fileWordCountSuffix).onChange(async (value) => {
-              this.plugin.settings.fileWordCountSuffix = value.trim();
-              await this.plugin.saveData(this.plugin.settings);
-              await removeWordCount(this.plugin);
-              await createWordCount(this.plugin);
-            });
-          });
-      });
-
-    /** Setting Library **/
-    new SettingGroup(containerEl).setHeading(m.settings_setting_library()).addSetting((setting) => {
-      setting
-        .setName(m.settings_setting_library_folder())
-        .setDesc(m.settings_setting_library_folder_desc())
-        .addDropdown((component) => {
-          component.addOption("", m.none_bracket());
-          this.plugin.app.vault.getAllFolders(false).forEach((folder) => {
-            component.addOption(folder.path, folder.path);
-          });
-          component.setValue(this.plugin.settings.settingLibraryFolder).onChange(async (value) => {
-            this.plugin.settings.settingLibraryFolder = value;
-            await this.plugin.saveData(this.plugin.settings);
-          });
-        });
-    });
 
     /** About **/
     new SettingGroup(containerEl).setHeading(m.settings_about()).addSetting((setting) => {

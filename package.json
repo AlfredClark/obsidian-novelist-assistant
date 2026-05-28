@@ -26,6 +26,7 @@
     "machine-translate": "inlang machine translate --project src/i18n/project.inlang"
   },
   "dependencies": {
+    "nzh": "^1.0.14",
     "obsidian": "latest"
   },
   "peerDependencies": {
