@@ -48,7 +48,7 @@ async function getWordCount(file: TFile, plugin: ObsidianPlugin) {
 }
 
 // Listen for file changes and update the corresponding file explorer item in real time.
-function registerWordCountModifyEvent(plugin: ObsidianPlugin) {
+async function registerWordCountModifyEvent(plugin: ObsidianPlugin) {
   plugin.registerEvent(
     plugin.app.vault.on("create", async (file) => {
       if (!plugin.settings.fileWordCountEnable) return;
@@ -109,5 +109,5 @@ export async function initializeWordCount(plugin: ObsidianPlugin) {
       await createWordCount(plugin);
     });
   }
-  registerWordCountModifyEvent(plugin);
+  await registerWordCountModifyEvent(plugin);
 }

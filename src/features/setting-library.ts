@@ -67,7 +67,7 @@ function addEditorMenuItems(menu: Menu, editor: Editor, plugin: ObsidianPlugin) 
 
   for (const item of items) {
     menu.addItem((menuItem) => {
-      menuItem.setIcon("table-of-contents").setTitle(item.title).onClick(item.onClick);
+      menuItem.setIcon("book-a").setTitle(item.title).onClick(item.onClick);
     });
   }
 }
@@ -89,7 +89,7 @@ function addSelectionMenuItems(
     if (!(child instanceof TFolder)) continue;
     menu.addItem((item) => {
       item
-        .setIcon("table-of-contents")
+        .setIcon("book-a")
         .setTitle(m.editor_menu_add_to_library({ name: child.name }))
         .onClick(async () => {
           await createSettingLibraryFile(child, selection, plugin);
