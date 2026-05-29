@@ -47,19 +47,22 @@ async function getWordCount(file: TFile, plugin: ObsidianPlugin) {
   return countMarkdownWords(content);
 }
 
-// Listen for file changes and update the corresponding file explorer item in real time.
-async function registerWordCountModifyEvent(plugin: ObsidianPlugin) {
+// Listen for file create to show word count.
+async function registerWordCountCreateEvent(plugin: ObsidianPlugin) {
   plugin.registerEvent(
-    plugin.app.vault.on("create", async (file) => {
+    plugin.app.vault.on("create", (file) => {
       if (!plugin.settings.fileWordCountEnable) return;
+      if (!(file instanceof TFile)) return;
       const view = getExplorerView(plugin);
       const element = view?.fileItems[file.path]?.selfEl;
       if (!element) return;
-      const fileRef = plugin.app.vault.getFileByPath(file.path);
-      if (!fileRef) return;
       setFileItemCount(element, 0, plugin.settings.fileWordCountSuffix);
     }),
   );
+}
+
+// Listen for file changes and update the corresponding file explorer item in real time.
+async function registerWordCountModifyEvent(plugin: ObsidianPlugin) {
   plugin.registerEvent(
     plugin.app.vault.on("modify", async (file) => {
       if (!plugin.settings.fileWordCountEnable) return;
@@ -107,6 +110,7 @@ export async function initializeWordCount(plugin: ObsidianPlugin) {
   if (plugin.settings.fileWordCountEnable) {
     plugin.app.workspace.onLayoutReady(async () => {
       await createWordCount(plugin);
+      await registerWordCountCreateEvent(plugin);
     });
   }
   await registerWordCountModifyEvent(plugin);
