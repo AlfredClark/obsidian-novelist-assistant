@@ -1,6 +1,6 @@
 {
   "name": "obsidian-novelist-assistant",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "An Obsidian plugin to assist Chinese novelists in their creative process.",
   "homepage": "https://github.com/AlfredClark/obsidian-novelist-assistant",
   "author": {
@@ -26,8 +26,8 @@
     "machine-translate": "inlang machine translate --project src/i18n/project.inlang"
   },
   "dependencies": {
-    "nzh": "^1.0.14",
-    "obsidian": "latest"
+    "nzh": "latest",
+    "obsidian": "1.12.3"
   },
   "peerDependencies": {
     "typescript": "^5"
@@ -41,19 +41,19 @@
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-obsidianmd": "^0.3.0",
-    "eslint-plugin-svelte": "^3.17.1",
+    "eslint-plugin-svelte": "^3.18.0",
     "globals": "^17.6.0",
     "jiti": "^2.7.0",
     "prettier": "^3.8.3",
     "prettier-plugin-svelte": "^4.0.1",
     "rimraf": "^6.1.3",
-    "svelte": "^5.55.9",
+    "svelte": "^5.55.10",
     "svelte-check": "^4.4.8",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.59.4",
+    "typescript-eslint": "^8.60.0",
     "vite": "^8.0.14",
     "vite-plugin-eslint2": "^5.1.0",
     "@inlang/paraglide-js": "^2.18.1",
-    "@inlang/cli": "^3.0.0"
+    "@inlang/cli": "^3.1.11"
   }
 }

@@ -1,7 +1,7 @@
 {
 	"id": "obsidian-novelist-assistant",
 	"name": "Novelist Assistant",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"minAppVersion": "1.12.0",
 	"description": "An Obsidian plugin to assist Chinese novelists in their creative process.",
 	"isDesktopOnly": true,
