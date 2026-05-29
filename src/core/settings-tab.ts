@@ -46,21 +46,38 @@ export class TemplatePluginSettingTab extends PluginSettingTab {
     });
 
     /** Setting Library **/
-    new SettingGroup(containerEl).setHeading(m.settings_setting_library()).addSetting((setting) => {
-      setting
-        .setName(m.settings_setting_library_folder())
-        .setDesc(m.settings_setting_library_folder_desc())
-        .addDropdown((component) => {
-          component.addOption("", m.none_bracket());
-          this.plugin.app.vault.getAllFolders(false).forEach((folder) => {
-            component.addOption(folder.path, folder.path);
+    new SettingGroup(containerEl)
+      .setHeading(m.settings_setting_library())
+      .addSetting((setting) => {
+        setting
+          .setName(m.settings_setting_library_folder())
+          .setDesc(m.settings_setting_library_folder_desc())
+          .addDropdown((component) => {
+            component.addOption("", m.none_bracket());
+            this.plugin.app.vault.getAllFolders(false).forEach((folder) => {
+              component.addOption(folder.path, folder.path);
+            });
+            component
+              .setValue(this.plugin.settings.settingLibraryFolder)
+              .onChange(async (value) => {
+                this.plugin.settings.settingLibraryFolder = value;
+                await this.plugin.saveData(this.plugin.settings);
+              });
           });
-          component.setValue(this.plugin.settings.settingLibraryFolder).onChange(async (value) => {
-            this.plugin.settings.settingLibraryFolder = value;
-            await this.plugin.saveData(this.plugin.settings);
+      })
+      .addSetting((setting) => {
+        setting
+          .setName(m.settings_setting_library_suggest_prefix())
+          .setDesc(m.settings_setting_library_suggest_prefix_desc())
+          .addText((component) => {
+            component
+              .setValue(this.plugin.settings.settingLibrarySuggestPrefix)
+              .onChange(async (value) => {
+                this.plugin.settings.settingLibrarySuggestPrefix = value;
+                await this.plugin.saveData(this.plugin.settings);
+              });
           });
-        });
-    });
+      });
 
     /** Auto Number **/
     new SettingGroup(containerEl)

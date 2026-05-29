@@ -23,6 +23,7 @@ export type Settings = {
   fileWordCountSuffix: string;
   // Setting Library
   settingLibraryFolder: string;
+  settingLibrarySuggestPrefix: string;
   // Auto Number
   autoNumberFormat: string;
   autoNumberStyle: string;
@@ -44,6 +45,7 @@ export const DEFAULT_SETTINGS: Settings = {
   fileWordCountEnable: true,
   fileWordCountSuffix: "字",
   settingLibraryFolder: "",
+  settingLibrarySuggestPrefix: "//",
   autoNumberFormat: "第{n}章",
   autoNumberStyle: "number",
 };

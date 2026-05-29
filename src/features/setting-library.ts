@@ -1,5 +1,15 @@
 import { ObsidianPlugin } from "../core/types";
-import { TFolder, normalizePath, TFile, Menu, Editor } from "obsidian";
+import {
+  TFolder,
+  normalizePath,
+  TFile,
+  Menu,
+  Editor,
+  EditorSuggest,
+  EditorPosition,
+  EditorSuggestContext,
+  EditorSuggestTriggerInfo,
+} from "obsidian";
 import * as m from "../i18n/paraglide/messages";
 
 // Create an empty .md file for a selection in the specified folder if it doesn't exist.
@@ -99,6 +109,49 @@ function addSelectionMenuItems(
   }
 }
 
+class SettingLibrarySuggest extends EditorSuggest<string> {
+  plugin: ObsidianPlugin;
+
+  constructor(plugin: ObsidianPlugin) {
+    super(plugin.app);
+    this.plugin = plugin;
+  }
+
+  onTrigger(
+    cursor: EditorPosition,
+    editor: Editor,
+    _file: TFile | null,
+  ): EditorSuggestTriggerInfo | null {
+    if (!this.plugin.settings.settingLibrarySuggestPrefix.trim()) return null;
+    const line = editor.getLine(cursor.line);
+    const pattern = new RegExp(`${this.plugin.settings.settingLibrarySuggestPrefix.trim()}(.?)$`);
+    const match = line.substring(0, cursor.ch).match(pattern);
+    if (match) {
+      return {
+        start: { line: cursor.line, ch: match.index! },
+        end: cursor,
+        query: match[1] ?? "",
+      };
+    }
+    return null;
+  }
+
+  getSuggestions(context: EditorSuggestContext): string[] | Promise<string[]> {
+    return getAllSettingLibraries(this.plugin).filter((value) => value.startsWith(context.query));
+  }
+
+  renderSuggestion(value: string, el: HTMLElement): void {
+    el.createSpan({ text: value });
+  }
+
+  selectSuggestion(value: string, _evt: MouseEvent | KeyboardEvent): void {
+    if (this.context) {
+      this.context.editor.replaceRange(`[[${value}]]`, this.context.start, this.context.end);
+      this.close();
+    }
+  }
+}
+
 /**
  * Initialize the setting library features
  * @param plugin ObsidianPlugin
@@ -114,4 +167,5 @@ export async function initializeSettingLibrary(plugin: ObsidianPlugin) {
       }
     }),
   );
+  plugin.registerEditorSuggest(new SettingLibrarySuggest(plugin));
 }
