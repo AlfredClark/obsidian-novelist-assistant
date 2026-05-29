@@ -49,7 +49,10 @@ function addEditorMenuItems(menu: Menu, editor: Editor, plugin: ObsidianPlugin) 
       onClick: async () => {
         let content = editor.getValue();
         getAllSettingLibraries(plugin).forEach((libName) => {
-          content = content.replace(new RegExp(libName, "g"), `[[${libName}]]`);
+          content = content.replace(
+            new RegExp(libName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g"),
+            `[[${libName}]]`,
+          );
         });
         content = content.replace(/\[{3,}/g, "[[").replace(/]{3,}/g, "]]");
         editor.setValue(content);
@@ -60,7 +63,10 @@ function addEditorMenuItems(menu: Menu, editor: Editor, plugin: ObsidianPlugin) 
       onClick: async () => {
         let content = editor.getValue();
         getAllSettingLibraries(plugin).forEach((libName) => {
-          content = content.replace(new RegExp(`\\[\\[${libName}]]`, "g"), libName);
+          content = content.replace(
+            new RegExp(`\\[\\[${libName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}]]`, "g"),
+            libName,
+          );
         });
         editor.setValue(content);
       },
@@ -124,7 +130,7 @@ class SettingLibrarySuggest extends EditorSuggest<string> {
   ): EditorSuggestTriggerInfo | null {
     if (!this.plugin.settings.settingLibrarySuggestPrefix.trim()) return null;
     const line = editor.getLine(cursor.line);
-    const pattern = new RegExp(`${this.plugin.settings.settingLibrarySuggestPrefix.trim()}(.?)$`);
+    const pattern = new RegExp(`${this.plugin.settings.settingLibrarySuggestPrefix.trim()}(.*)$`);
     const match = line.substring(0, cursor.ch).match(pattern);
     if (match) {
       return {
