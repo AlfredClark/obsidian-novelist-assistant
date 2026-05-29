@@ -11,7 +11,7 @@ import { initializeGridlines } from "./features/gridlines";
 import { initializeWordCount } from "./features/word-count";
 import { initializeSettingLibrary } from "./features/setting-library";
 import { initializeReadingMode } from "./features/reading-mode";
-import { initializeAutoNumbers } from "./features/auto-number";
+import { initializeAutoNumber } from "./features/auto-number";
 
 export default class TemplatePlugin extends ObsidianPlugin {
   async onload() {
@@ -29,6 +29,6 @@ export default class TemplatePlugin extends ObsidianPlugin {
     await initializeWordCount(this);
     await initializeReadingMode(this);
     await initializeSettingLibrary(this);
-    await initializeAutoNumbers(this);
+    await initializeAutoNumber(this);
   }
 }
